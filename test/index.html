@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  
+  <script src="jquery-1.4.4.min.js" type="text/javascript"></script>
+  <script src="../predictiveTyping.js" type="text/javascript"></script>
+  <script src="city.js" type="text/javascript"></script>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+
+  <title>Exemple</title>
+  
+  <style>
+  	html,body {
+  		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  		    	font-size: 22px;
+  		    	font-stretch : extra-condensed;
+  		
+  	}
+  	.label-text {
+
+	    z-index: 5;
+	    color: #A2AFC2;
+
+	}
+	
+	
+	.field {
+	    color: #383838;
+	    cursor: text;
+	    z-index: 300;
+	    font-size:22px;
+	    padding:5px;
+		border:2px solid #000;
+	    margin:0;
+}
+	    	
+
+.field-container {
+
+    z-index: 10;
+}
+
+  </style>
+  
+  <script type="text/javascript">
+  	$(function() {
+  		
+  		$('#email').predictiveTyping({
+
+    	});
+    	
+    	$('#password').predictiveTyping({
+
+    	});
+    	
+    	$('#city').predictiveTyping({
+			'source':cities
+    	});
+  	});
+  </script>
+  
+  </head>
+
+<body>
+
+
+	<h1>First exemple</h1>
+	<form method="get"><input type="text" value="" class="field" title="city" id="city"/><input type="submit" /></form>
+	<hr/>
+	<h1>Second exemple</h1>
+	<input type="text" value="" title="e-mail" class="field" id="email"/>
+	<label for="password">password</label><input type="password" value="" class="field" id="password"/>
+	<hr/>
+	
+</body>
+</html>
