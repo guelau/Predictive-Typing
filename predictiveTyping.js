@@ -84,7 +84,7 @@
                 backgroundImage : $el.css('background-image')||'none',
                 backgroundRepeat : $el.css('background-repeat')||'repeat',
                 backgroundAttachment : $el.css('background-attachment')||'scroll',
-                backgroundPosition : $el.css('background-color')||'0% 0%',
+                backgroundPosition : $el.css('background-position')||'0% 0%',
 
                 marginTop : $el.css('margin-top')||0,
                 marginRight : $el.css('margin-right')||0,
@@ -184,8 +184,8 @@
                 {
                     base.$label.val(base.$el.val());
                 }
-                return true;
             }
+            return true;
         }
         
         var onKeyup = function(e)
