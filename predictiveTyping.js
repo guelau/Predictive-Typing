@@ -50,6 +50,7 @@
             base.label = getLabel();
 
             
+            // Get the textbox styles used to mimic the displayed text of the textbox
             // To have a nice effect, you need to style your ($el) input like this :
             // # input {border:1px solid #000; margin:3px; padding:5px;}
             base.inputStyles = {
@@ -62,6 +63,12 @@
                 fontWeight : $el.css('font-weight')||'normal',
                 fontStyle : $el.css('font-style')||'normal',
                 color : $el.css('color')||'inherit',
+                
+                /* @todo
+                letterSpacing : $el.css('letter-spacing'),
+                lineHeight : $el.css('line-height'),
+                textDecoration : $el.css('text-decoration'),
+                textTransform : $el.css('text-transform'),*/
                 
                 borderTopWidth : $el.css('border-top-width')||'1px',
                 borderRightWidth : $el.css('border-right-width')||'1px',
@@ -105,6 +112,10 @@
             
             base.position = $el.position(); // Get old Input position
             
+            var contener = document.createElement("div");
+            $(contener).css({'z-index':base.opts.zIndex+1, 'display':'block', 'width':$el.outerWidth(true), 'height':$el.outerHeight(true)});
+            $(contener).addClass(base.opts.labelClass + '-contener');
+            
             // Create and set the label input
             base.label = document.createElement("input");
             
@@ -112,7 +123,7 @@
             base.$label = $(base.label);
             
             var labelClass = base.opts.labelClass || 'predictive-text'
-            base.$label.attr({'class':labelClass, 'disabled':'disabled', 'autocomplete':'off'});
+            base.$label.attr({'class':labelClass + '-label', 'disabled':'disabled', 'autocomplete':'off'});
             
             base.$label.val(base.lblText);
             
@@ -120,7 +131,8 @@
             base.$label.css(base.inputStyles);
             base.$label.css(
                     {
-                    'z-index':'-1',
+                    'z-index':base.opts.zIndex,
+                    //'z-index':'-1',
                     'color':base.inputStyles.color,
                     'position':'absolute',
                     'top':base.position.top,
@@ -129,30 +141,36 @@
 
             // Up input style
             $el.css(base.inputStyles);
-            $el.css({'background':'transparent'});
+            $el.css({'background':'transparent', 'position':'absolute',
+                    'top':base.position.top,
+                    'left':base.position.left, 'z-index':base.opts.zIndex+2});
             $el.attr({'disabled':'', 'autocomplete':'off'});
+            $el.addClass(base.opts.labelClass);
             
-            $el.before(base.label);
+            $el.replaceWith(contener);
+            $(contener).append($el, base.label);
+            //
+            //$el.before(base.label);
             
             base.$el.focus(function(e) { onFocus(e); })
                .blur(function(e) { onBlur(e); })
                .keyup(function(e) { onKeyup(e); })
                .keypress(function(e) { onKeypress(e); });
 			
-        }
+        };
         
         var getLabel = function()
         {
             base.lblText = base.opts.label || $('label[for="' + base.$el.attr('id') + '"]').text() || base.$el.attr('title');
             // hide old label
             $('label[for="' + base.$el.attr('id') + '"]').hide();
-        }
+        };
         
         
         var onFocus = function(e)
         {
             base.$label.css('color', base.opts.labelFocusColor);
-        }
+        };
         var onBlur = function(e)
         {
             if(base.$el.val() == '')
@@ -164,7 +182,7 @@
                     base.$label.val('');
             }
             base.$label.css('color', base.inputStyles.color);
-        }
+        };
         
         var onKeypress = function(e)
         {
@@ -186,7 +204,7 @@
                 }
             }
             return true;
-        }
+        };
         
         var onKeyup = function(e)
         {
@@ -208,7 +226,7 @@
                     return false; // each:go out!
                 }
             });
-        }
+        };
         
         var isAlpha = function(e){
             if (/\w/i.test(String.fromCharCode(e.which)))
@@ -217,7 +235,7 @@
             } else {
                 return false;
             }
-        }
+        };
         
         // Run initializer
         base.init();
@@ -231,7 +249,8 @@
         speed:100,
         labelColor:'#333',
         labelFocusColor:'#ccc',
-        source:{}
+        source:{},
+        zIndex:1000
     };
     
     $.fn.predictiveTyping = function(options){
