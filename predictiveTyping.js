@@ -155,7 +155,7 @@
             base.$el.focus(function(e) { onFocus(e); })
                .blur(function(e) { onBlur(e); })
                .keyup(function(e) { onKeyup(e); })
-               .keypress(function(e) { onKeypress(e); });
+               .keydown(function(e) { onKeypress(e); });
 			
         };
         
@@ -186,7 +186,8 @@
         
         var onKeypress = function(e)
         {
-            if(e.keyCode == 9)  // tab pressed
+            var kc = e.keyCode || e.which;
+            if(kc == 9 || kc == 39)  // tab pressed
             {
                 if(base.$el.val() != base.$label.val() && '' != base.$el.val() && '' != base.$label.val())
                 {
@@ -196,7 +197,7 @@
                     return false;
                 }
             }
-            if(e.keyCode == 13) // enter pressed
+            if(kc == 13) // enter pressed
             {
                 if('' != base.$el.val())
                 {
