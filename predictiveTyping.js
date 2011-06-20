@@ -199,7 +199,7 @@
             }
             if(kc == 13) // enter pressed
             {
-                if('' != base.$el.val())
+            	if(base.$el.is(':not(:password)') && '' != base.$el.val())
                 {
                     base.$label.val(base.$el.val());
                 }
