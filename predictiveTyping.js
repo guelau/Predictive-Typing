@@ -113,7 +113,9 @@
             base.position = $el.position(); // Get old Input position
             
             var contener = document.createElement("div");
-            $(contener).css({'z-index':base.opts.zIndex+1, 'display':'block', 'width':$el.outerWidth(true), 'height':$el.outerHeight(true)});
+            var fullWidth = $el.outerWidth( true );
+            var fullHeight = $el.outerHeight( true );
+            $(contener).css({'z-index':base.opts.zIndex+1, 'display':'block', 'position':'relative', 'width':fullWidth, 'height':fullHeight});
             $(contener).addClass(base.opts.labelClass + '-contener');
             
             // Create and set the label input
@@ -134,16 +136,16 @@
                     'z-index':base.opts.zIndex,
                     //'z-index':'-1',
                     'color':base.inputStyles.color,
-                    'position':'absolute',
-                    'top':base.position.top,
-                    'left':base.position.left
+                    'position':'relative',
+                    'top':-fullHeight,
+                    'left':0
                     });
 
             // Up input style
             $el.css(base.inputStyles);
-            $el.css({'background':'transparent', 'position':'absolute',
-                    'top':base.position.top,
-                    'left':base.position.left, 'z-index':base.opts.zIndex+2});
+            $el.css({'background':'transparent', 'position':'relative',
+                    'top':0,
+                    'left':0, 'z-index':base.opts.zIndex+2});
             $el.attr({'disabled':'', 'autocomplete':'off'});
             $el.addClass(base.opts.labelClass);
             
@@ -187,7 +189,7 @@
         var onKeypress = function(e)
         {
             var kc = e.keyCode || e.which;
-            if(kc == 9 || kc == 39)  // tab pressed
+            if(kc == 9 || kc == 39 )  // tab pressed
             {
                 if(base.$el.val() != base.$label.val() && '' != base.$el.val() && '' != base.$label.val())
                 {
