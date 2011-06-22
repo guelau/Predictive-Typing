@@ -35,15 +35,12 @@
 	    padding:5px;
 		border:2px solid #000;
 	    margin:0;
-}
-	    	
-
-
+	}
   </style>
   
   <script type="text/javascript">
   	$(function() {
-  		
+
   		$('#email').predictiveTyping({
 
     	});
@@ -56,21 +53,34 @@
 			'source':cities,
 			'allowTabKey':true,
     	});
+    	
+    	$('#city2').predictiveTyping({
+			'source':cities,
+			'allowTabKey':true,
+    	});
   	});
+  	
+  	
   </script>
   
   </head>
 
 <body>
+	<h1>Usage exemple</h1>
 
 
-	<h1>First exemple</h1>
-	<form method="get"><input type="text" value="" class="field" title="city" id="city"/><input type="submit" /></form>
-	<hr/>
-	<h1>Second exemple</h1>
-	<input type="text" value="" title="e-mail" class="field" id="email"/>
+	<h2>First exemple</h2>
+	<label for="email">e-mail</label><input type="text" value="" title="e-mail" class="field" id="email"/>
 	<label for="password">password</label><input type="password" value="" class="field" id="password"/>
 	<hr/>
 	
+	<h2>Second exemple (United States city list from an array)</h2>
+	<input type="text" value="" class="field" title="United States city" id="city"/>
+	<hr/>
+	
+	<h2>Third exemple (United States city list return by a javascript function)</h2>
+	<input type="text" value="" class="field" title="United States city" id="city2"/>
+	<hr/>
+
 </body>
 </html>

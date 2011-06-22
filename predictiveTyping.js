@@ -254,7 +254,7 @@
         labelFocusColor:'#ccc',
         source:{},
         zIndex:1000,
-        allowTabKey:true,
+        allowTabKey:true
     };
     
     $.fn.predictiveTyping = function(options){
