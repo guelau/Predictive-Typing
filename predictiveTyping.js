@@ -189,7 +189,7 @@
         var onKeypress = function(e)
         {
             var kc = e.keyCode || e.which;
-            if(kc == 9 || kc == 39 )  // tab pressed
+            if((kc == 9 && base.opts.allowTabKey) || kc == 39 )  // tab pressed
             {
                 if(base.$el.val() != base.$label.val() && '' != base.$el.val() && '' != base.$label.val())
                 {
@@ -253,7 +253,8 @@
         labelColor:'#333',
         labelFocusColor:'#ccc',
         source:{},
-        zIndex:1000
+        zIndex:1000,
+        allowTabKey:true,
     };
     
     $.fn.predictiveTyping = function(options){
