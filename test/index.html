@@ -55,11 +55,24 @@
     	});
     	
     	$('#city2').predictiveTyping({
-			'source':cities,
-			'allowTabKey':true,
+			'source':usa.getCity,
+			'allowTabKey':false,
     	});
   	});
   	
+  	var usa = {
+		usCities : cities,
+		
+		getCity:function(value) {
+			var exp = new RegExp('^(' + value + ')', "i");
+			
+			for (var key in usa.usCities) {
+			  if( exp.test(usa.usCities[key]) ){
+                    return usa.usCities[key];
+              }
+			}
+		}
+	}
   	
   </script>
   

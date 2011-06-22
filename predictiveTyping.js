@@ -217,18 +217,24 @@
             }
                     
             var srch = base.$el.val();
-            var exp = new RegExp('^(' + srch + ')', "i");
             if('' == srch) {base.$label.val(base.lblText); return true;}
+            var exp = new RegExp('^(' + srch + ')', "i");
             base.$label.val('');
-
-            
-            $(base.opts.source).each(function(k,v)
-            { 
-                if( exp.test(v) ){
-                    base.$label.val(v.replace(exp, srch));
-                    return false; // each:go out!
-                }
-            });
+			
+			
+			
+			if(typeof base.opts.source == 'function') {
+				var re = base.opts.source( srch );
+				base.$label.val( re.replace(exp, srch) );
+			}
+            else
+	            $(base.opts.source).each(function(k,v)
+	            { 
+	                if( exp.test(v) ){
+	                    base.$label.val(v.replace(exp, srch));
+	                    return false; // each:go out!
+	                }
+	            });
         };
         
         var isAlpha = function(e){
