@@ -1,4 +1,4 @@
-;/*
+/*
  * Predictive Typing 1.0.1
  *
  * Copyright (c) 2011 Laurent Guedon (tild.com)
@@ -27,7 +27,9 @@
  * @date	2011-01-26 18:11:21
  * @version	1.0.1
  */
-(function($){
+;(function($){
+    "use strict";
+    
     $.predictiveTyping = function(el, options){
         // To avoid scope issues, use 'base' instead of 'this'
         // to reference this class from internal events and functions.
@@ -124,7 +126,7 @@
             
             base.$label = $(base.label);
             
-            var labelClass = base.opts.labelClass || 'predictive-text'
+            var labelClass = base.opts.labelClass || 'predictive-text';
             base.$label.attr({'class':labelClass + '-label', 'disabled':'disabled', 'autocomplete':'off'});
             
             base.$label.val(base.lblText);
@@ -169,19 +171,19 @@
         };
         
         
-        var onFocus = function(e)
+        var onFocus = function()
         {
             base.$label.css('color', base.opts.labelFocusColor);
         };
-        var onBlur = function(e)
+        var onBlur = function()
         {
-            if(base.$el.val() == '')
+            if(base.$el.val() === '')
             {
                 base.$label.val(base.lblText);
             }
             else
             {
-                    base.$label.val('');
+                base.$label.val('');
             }
             base.$label.css('color', base.inputStyles.color);
         };
@@ -189,9 +191,9 @@
         var onKeypress = function(e)
         {
             var kc = e.keyCode || e.which;
-            if((kc == 9 && base.opts.allowTabKey) || kc == 39 )  // tab pressed
+            if((kc === 9 && base.opts.allowTabKey) || kc === 39 )  // tab pressed
             {
-                if(base.$el.val() != base.$label.val() && '' != base.$el.val() && '' != base.$label.val())
+                if(base.$el.val() !== base.$label.val() && '' !== base.$el.val() && '' !== base.$label.val())
                 {
                     e.preventDefault();
                     base.$el.val(base.$label.val());
@@ -199,9 +201,9 @@
                     return false;
                 }
             }
-            if(kc == 13) // enter pressed
+            if(kc === 13) // enter pressed
             {
-            	if(base.$el.is(':not(:password)') && '' != base.$el.val())
+                if(base.$el.is(':not(:password)') && '' !== base.$el.val())
                 {
                     base.$label.val(base.$el.val());
                 }
@@ -217,32 +219,23 @@
             }
                     
             var srch = base.$el.val();
-            if('' == srch) {base.$label.val(base.lblText); return true;}
+            if('' === srch) {base.$label.val(base.lblText); return true;}
             var exp = new RegExp('^(' + srch + ')', "i");
             base.$label.val('');
 			
 			
 			
-			if(typeof base.opts.source == 'function') {
+			if(typeof base.opts.source === 'function') {
 				var re = base.opts.source( srch );
 				base.$label.val( re.replace(exp, srch) );
 			}
-            else
-	            $(base.opts.source).each(function(k,v)
-	            { 
-	                if( exp.test(v) ){
-	                    base.$label.val(v.replace(exp, srch));
-	                    return false; // each:go out!
-	                }
-	            });
-        };
-        
-        var isAlpha = function(e){
-            if (/\w/i.test(String.fromCharCode(e.which)))
-            {
-                return true;
-            } else {
-                return false;
+            else {
+                $(base.opts.source).each(function(k,v) { 
+                    if( exp.test(v) ){
+                        base.$label.val(v.replace(exp, srch));
+                        return false; // each:go out!
+                    }
+                });
             }
         };
         
@@ -251,7 +244,7 @@
     };
     
     $.predictiveTyping.defaultOptions = {
-    	label: null,
+        label: null,
         onStart: null,
         containerClass: 'predictive-text-box',
         labelClass: 'predictive-text',
