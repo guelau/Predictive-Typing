@@ -78,7 +78,7 @@
             var contener = document.createElement("div");
             var fullWidth = $el.outerWidth( true );
             var fullHeight = $el.outerHeight( true );
-            $(contener).css({'display':'block', 'position':'relative', 'width':fullWidth, 'height':fullHeight});
+            $(contener).css({'display':'block', 'position':'relative', 'width':fullWidth, 'height':fullHeight, 'overflow':'hidden'});
             $(contener).addClass(base.opts.labelClass + '-contener');
             
             // Create and set the label input
@@ -93,18 +93,16 @@
                 // Clone default and user defined css styles
                 if ( typeof cStyle == "string" && (!isMoz || (isMoz && cStyle != "cssText"))) {
                     try {
-                        base.label.style[cStyle] = clonedStyles[cStyle];
+                        if(clonedStyles[cStyle] != '') {
+                            base.label.style[cStyle] = clonedStyles[cStyle];
+                        }
+                        
                         if ( cStyle == "zIndex" && clonedStyles[cStyle] != "auto") { // getcurrent zIndex
                             base.zIndex = clonedStyles[cStyle];
                         }
-                        if(isMoz){
-                            if ( cStyle == "font" ) {
-                				base.label.style.fontSize = clonedStyles.fontSize;
-                			}
-                			if ( cStyle == "border" ) {
-                				base.label.style.borderSize = clonedStyles.borderSize;
-                			}
-                        }
+                        if ( isMoz && cStyle == "font" ) {
+            				base.label.style.fontSize = clonedStyles.fontSize;
+            			}
                     } catch (e) {}
                 }
             }
@@ -115,7 +113,8 @@
                     'z-index':base.zIndex,
                     'position':'relative',
                     'top':-fullHeight,
-                    'left':0
+                    'left':0,
+                    'border-color':'transparent'
                     });
 
             // Up input style
